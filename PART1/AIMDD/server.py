@@ -46,7 +46,7 @@ for j in data:
     base.append(row)
     print("({0} / {1}) Done...".format(j[0],len(data)))
     items = np.asarray(base)
-    pd.DataFrame(items,None,index).to_csv('Aimdd.xlsx')
+    pd.DataFrame(items,None,index).to_csv('Aimdd.csv')
     #t=10
         
 browser.quit()
