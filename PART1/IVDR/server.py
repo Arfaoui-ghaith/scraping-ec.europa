@@ -10,6 +10,7 @@ browser = webdriver.Chrome("chromedriver.exe")
 
 with open('Ivdr-Ids.csv', newline='') as csvfile:
     data = list(csv.reader(csvfile))
+    data.pop(0)
 base=[]
 index=['Applicable legislation', 
        'Basic UDI-DI code', 

@@ -10,6 +10,7 @@ browser = webdriver.Chrome("chromedriver.exe")
 
 with open('Ivdd-Ids.csv', newline='') as csvfile:
     data = list(csv.reader(csvfile))
+    data.pop(0)
 base=[]
 index=['Applicable legislation', 
        'EUDAMED DI code', 
