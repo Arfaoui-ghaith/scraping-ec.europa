@@ -10,6 +10,7 @@ browser = webdriver.Chrome("chromedriver.exe")
 
 with open('Aimdd-Ids.csv', newline='') as csvfile:
     data = list(csv.reader(csvfile))
+    data.pop(0)
 base=[]
 index=['Applicable legislation', 
        'EUDAMED DI code', 
@@ -46,7 +47,7 @@ for j in data:
     base.append(row)
     print("({0} / {1}) Done...".format(j[0],len(data)))
     items = np.asarray(base)
-    pd.DataFrame(items,None,index).to_csv('Aimdd.csv')
+    pd.DataFrame(items,None,index).to_csv('Aimdd1.csv')
     #t=10
         
 browser.quit()
