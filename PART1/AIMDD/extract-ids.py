@@ -6,7 +6,8 @@ import numpy as np
 import json
 import urllib.request, json 
 
-aimdd = "https://ec.europa.eu/tools/eudamed/api/devices/udiDiData?page={0}&pageSize=300&applicableLegislation=refdata.applicable-legislation.aimdd&includeHistoricalVersion=true&size=300"
+aimdd = "https://ec.europa.eu/tools/eudamed/api/devices/udiDiData?page={0}&pageSize=50&size=300&sort=primaryDi,ASC&sort=versionNumber,DESC&iso2Code=en&applicableLegislation=refdata.applicable-legislation.aimdd&includeHistoricalVersion=true&languageIso2Code=en"
+
 print('Requesting The AIMDD Search Now...')
 
 with urllib.request.urlopen(aimdd.format(0)) as url:
@@ -22,7 +23,7 @@ for p in range(totalPages):
         dataPage = json.loads(url.read().decode())
     for i in dataPage["content"]:
         ids.append(i["uuid"])
-    print("Page {0} Done.".format(p))
+    print("Page {0} - {1} / {2} Done.".format(p,len(ids),data["totalElements"]))
 
 print(len(ids), " Ids Has Been Scraped.")
 

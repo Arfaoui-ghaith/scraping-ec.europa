@@ -63,6 +63,6 @@ for p in range(1,len(data)):
             base.append(row)
             print("({0} / {1}) Done...".format(data[p][0],len(data)))
             items = np.asarray(base)
-            pd.DataFrame(items,None,index).to_csv('manufacturer2.csv')
+            pd.DataFrame(items,None,index).to_csv('manufacturer.csv')
     except:
         print("cant acces to ",link.format(data[p][1]))
