@@ -14,7 +14,8 @@ link = "https://ec.europa.eu/tools/eudamed/api/devices/basicUdiData/udiDiData/{0
 print('Requesting The IVDD Search Now For Certificates details...')
 
 base=[]
-index=[
+index=['Actor ID/SRN',
+       'Actor/Organisation name',
        'Device Name',
        'NB ID, name',
        'Certificate number',
@@ -34,6 +35,14 @@ for p in range(1,len(data)):
         if(url.getcode() == 200):
             for ct in dataPage["deviceCertificateInfoList"]:
                 row=[]
+                try:
+                    row.append(dataPage["manufacturer"]["srn"])
+                except:
+                    row.append("")
+                try:
+                    row.append(dataPage["manufacturer"]["name"])
+                except:
+                    row.append("")
                 try:
                     row.append(dataPage["deviceName"])
                 except:

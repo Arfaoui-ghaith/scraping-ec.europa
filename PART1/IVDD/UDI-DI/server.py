@@ -11,10 +11,13 @@ with open('../Ivdd-Ids.csv', newline='') as csvfile:
     data = list(csv.reader(csvfile))
 
 link = "https://ec.europa.eu/tools/eudamed/api/devices/udiDiData/{0}?languageIso2Code=en"
+link1 = "https://ec.europa.eu/tools/eudamed/api/devices/basicUdiData/udiDiData/{0}?languageIso2Code=en"
 print('Requesting The IVDD Search Now For UDI-DI details...')
 
 base=[]
-index=['UDI-DI code', 
+index=['Actor ID/SRN',
+       'Actor/Organisation name',
+        'UDI-DI code', 
        'Status',
        'Nomenclature code(s)',
        'Name/Trade name(s)',
@@ -40,7 +43,17 @@ for p in range(1,len(data)):
     try:
         with urllib.request.urlopen(link.format(data[p][1])) as url:
             dataPage = json.loads(url.read().decode())
+        with urllib.request.urlopen(link1.format(data[p][1])) as url:
+            dataPage1 = json.loads(url.read().decode())
         if(url.getcode() == 200):
+            try:
+                row.append(dataPage1["manufacturer"]["srn"])
+            except:
+                row.append("")
+            try:
+                row.append(dataPage1["manufacturer"]["name"])
+            except:
+                row.append("")
             try:
                 row.append(dataPage["primaryDi"]["code"]+" / "+dataPage["primaryDi"]["issuingAgency"]["code"].split('.')[-1].upper())
             except:

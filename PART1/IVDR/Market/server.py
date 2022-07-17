@@ -11,10 +11,13 @@ with open('../Ivdr-Ids.csv', newline='') as csvfile:
     data = list(csv.reader(csvfile))
 
 link = "https://ec.europa.eu/tools/eudamed/api/devices/udiDiData/{0}?languageIso2Code=en"
+link1 = "https://ec.europa.eu/tools/eudamed/api/devices/basicUdiData/udiDiData/{0}?languageIso2Code=en"
+
 print('Requesting The IVDR Search Now For Market distribution details...')
 
 base=[]
-index=[
+index=['Actor ID/SRN',
+       'Actor/Organisation name',
        'Device Name',
        'Markets',
        'link'
@@ -26,8 +29,17 @@ for p in range(1,len(data)):
     try:
         with urllib.request.urlopen(link.format(data[p][1])) as url:
             dataPage = json.loads(url.read().decode())
+        with urllib.request.urlopen(link1.format(data[p][1])) as url:
+            dataPage1 = json.loads(url.read().decode())
         if(url.getcode() == 200):
-           
+            try:
+                row.append(dataPage1["manufacturer"]["srn"])
+            except:
+                row.append("")
+            try:
+                row.append(dataPage1["manufacturer"]["name"])
+            except:
+                row.append("")
             try:
                 row.append(dataPage["tradeName"]["texts"][0]["text"])
             except:
